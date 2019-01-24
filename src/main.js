@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
+import './plugins/element/element.js'
+import './plugins/vueRx/vue-rx.js'
 
 Vue.config.productionTip = false
 
