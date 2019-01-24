@@ -86,15 +86,23 @@
         name: "MathDemo",
         data() {
             return {
+                // 是否隐藏控制台
                 showControl: true,
+                // 控制台宽度
                 widthControl: 4,
+                // 输出宽度
                 widthContent: 19,
-
+                // 题目总数
                 inputNums: 99,
+                // 结果不可超过
                 inputRes: 50,
+                // 输出的基数不可超过
                 inputBase: 10,
+                // 输出的基数不可小于
                 inputBase2: 5,
+                // 当前选择的运算法则
                 selectValue: ['+'],
+
                 options: [{
                     value: '+',
                     label: '加法'
@@ -109,10 +117,12 @@
                     label: '除法'
                 }],
 
+                // 输出结果储存
                 resArr: []
             }
         },
         computed: {
+            // 实际输出数量
             curCount() {
                 return this.resArr.length
             }

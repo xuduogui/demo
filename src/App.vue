@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <math-demo></math-demo>
+    <!--<math-demo></math-demo>-->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import MathDemo from "@/components/MathDemo";
 
 export default {
   name: 'app',
-  components: {
-      MathDemo,
-  }
 }
 </script>
 
