@@ -6,6 +6,8 @@ import './plugins/vueRx/vue-rx.js'
 
 Vue.config.productionTip = false
 
+const _ = require('lodash')
+
 new Vue({
     router,
     render: h => h(App),

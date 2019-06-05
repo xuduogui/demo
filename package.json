@@ -10,6 +10,9 @@
   "dependencies": {
     "@easydarwin/easyplayer": "^1.3.1",
     "element-ui": "^2.4.11",
+    "licia": "^1.4.7",
+    "lodash": "^4.17.11",
+    "pri-pack": "^1.0.2",
     "rxjs": "^6.3.3",
     "vue": "^2.5.21",
     "vue-router": "^3.0.2",

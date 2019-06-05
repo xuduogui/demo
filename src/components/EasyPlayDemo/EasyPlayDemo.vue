@@ -1,13 +1,26 @@
 <template>
-    <div>
+    <div style="position: relative;">
         <EasyPlayer
                 :videoUrl="videoUrl"
                 :aspect="aspect"
+                videoTitle="WO SHI CE SHIWO SHI CE SHIWO SHI CE SHI"
                 live
                 @message="$message"
                 :fluent="fluent"
                 :autoplay="autoplay"
         ></EasyPlayer>
+        <div style="position: absolute; top: 10px; right: 30px; width: 200px; color: red; background: rgba( 200, 200, 200, .5);">
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+            我是测试
+        </div>
     </div>
 </template>
 
@@ -21,11 +34,7 @@
         },
         data() {
             return {
-                // videoUrl: 'rtmp://live.hkstv.hk.lxdns.com/live/hks',
-                // videoUrl: 'ws://121.40.210.97:3000/play?stream=rtsp://username:password@221.226.23.58:5504/Streaming/Channels/102',
-                // videoUrl: 'http://nvs.easynvr.com:10810/nvc/demo/flv/hls/stream_1.flv?token=16bf2fee27b9b1e88dec565c7c5bd320',
-                // videoUrl: 'http://nvs.easynvr.com:10810/nvc/demo/flv/hls/stream_56.flv?token=0df4a5e17025ae724d0aba88d93e6317',
-                videoUrl: 'http://nvs.easynvr.com:10810/nvc/demo/flv/hls/stream_10.flv?token=5ba5eab75f1d4a54098249112a97acff',
+                videoUrl: '',
                 aspect: '',
                 fluent: '',
                 autoplay: '',
