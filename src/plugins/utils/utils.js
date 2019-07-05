@@ -1,23 +1,24 @@
-
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const CLONE_DEEP_FLAG = 1
-const CLONE_SYMBOLS_FLAG  = 4
-const CLONE_FLAT_FLAG  = 2
-
+const CLONE_SYMBOLS_FLAG = 4
+const CLONE_FLAT_FLAG = 2
 
 function isObject(value) {
-    var type = typeof value;
-    return value != null && (type == 'object' || type == 'function');
+  const type = typeof value
+  return value != null && (type == 'object' || type == 'function')
 }
 
-var isArray = Array.isArray;
+const isArray = Array.isArray
 
 function baseGetTag(value) {
-    if (value == null) {
-        return value === undefined ? undefinedTag : nullTag;
-    }
-    return (symToStringTag && symToStringTag in Object(value))
-        ? getRawTag(value)
-        : objectToString(value);
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag
+  }
+  return symToStringTag && symToStringTag in Object(value)
+    ? getRawTag(value)
+    : objectToString(value)
 }
 
 /**
@@ -37,85 +38,102 @@ function baseGetTag(value) {
  * @returns {*} Returns the cloned value.
  */
 function baseClone(value, bitmask, customizer, key, object, stack) {
-    var result,
-        isDeep = bitmask & CLONE_DEEP_FLAG,
-        isFlat = bitmask & CLONE_FLAT_FLAG,
-        isFull = bitmask & CLONE_SYMBOLS_FLAG;
+  let result
 
-    if (customizer) {
-        result = object ? customizer(value, key, object, stack) : customizer(value);
+  const isDeep = bitmask & CLONE_DEEP_FLAG
+
+  const isFlat = bitmask & CLONE_FLAT_FLAG
+
+  const isFull = bitmask & CLONE_SYMBOLS_FLAG
+
+  if (customizer) {
+    result = object ? customizer(value, key, object, stack) : customizer(value)
+  }
+  if (result !== undefined) {
+    return result
+  }
+  if (!isObject(value)) {
+    return value
+  }
+  const isArr = isArray(value)
+  if (isArr) {
+    result = initCloneArray(value)
+    if (!isDeep) {
+      return copyArray(value, result)
     }
-    if (result !== undefined) {
-        return result;
+  } else {
+    const tag = getTag(value)
+
+    const isFunc = tag == funcTag || tag == genTag
+
+    if (isBuffer(value)) {
+      return cloneBuffer(value, isDeep)
     }
-    if (!isObject(value)) {
-        return value;
-    }
-    var isArr = isArray(value);
-    if (isArr) {
-        result = initCloneArray(value);
-        if (!isDeep) {
-            return copyArray(value, result);
-        }
+    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
+      result = isFlat || isFunc ? {} : initCloneObject(value)
+      if (!isDeep) {
+        return isFlat
+          ? copySymbolsIn(value, baseAssignIn(result, value))
+          : copySymbols(value, baseAssign(result, value))
+      }
     } else {
-        var tag = getTag(value),
-            isFunc = tag == funcTag || tag == genTag;
-
-        if (isBuffer(value)) {
-            return cloneBuffer(value, isDeep);
-        }
-        if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
-            result = (isFlat || isFunc) ? {} : initCloneObject(value);
-            if (!isDeep) {
-                return isFlat
-                    ? copySymbolsIn(value, baseAssignIn(result, value))
-                    : copySymbols(value, baseAssign(result, value));
-            }
-        } else {
-            if (!cloneableTags[tag]) {
-                return object ? value : {};
-            }
-            result = initCloneByTag(value, tag, isDeep);
-        }
+      if (!cloneableTags[tag]) {
+        return object ? value : {}
+      }
+      result = initCloneByTag(value, tag, isDeep)
     }
-    // Check for circular references and return its corresponding clone.
-    stack || (stack = new Stack);
-    var stacked = stack.get(value);
-    if (stacked) {
-        return stacked;
+  }
+  // Check for circular references and return its corresponding clone.
+  stack || (stack = new Stack())
+  const stacked = stack.get(value)
+  if (stacked) {
+    return stacked
+  }
+  stack.set(value, result)
+
+  if (isSet(value)) {
+    value.forEach(function(subValue) {
+      result.add(
+        baseClone(subValue, bitmask, customizer, subValue, value, stack)
+      )
+    })
+
+    return result
+  }
+
+  if (isMap(value)) {
+    value.forEach(function(subValue, key) {
+      result.set(
+        key,
+        baseClone(subValue, bitmask, customizer, key, value, stack)
+      )
+    })
+
+    return result
+  }
+
+  const keysFunc = isFull
+    ? isFlat
+      ? getAllKeysIn
+      : getAllKeys
+    : isFlat
+      ? keysIn
+      : keys
+
+  const props = isArr ? undefined : keysFunc(value)
+  arrayEach(props || value, function(subValue, key) {
+    if (props) {
+      key = subValue
+      subValue = value[key]
     }
-    stack.set(value, result);
-
-    if (isSet(value)) {
-        value.forEach(function(subValue) {
-            result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
-        });
-
-        return result;
-    }
-
-    if (isMap(value)) {
-        value.forEach(function(subValue, key) {
-            result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
-        });
-
-        return result;
-    }
-
-    var keysFunc = isFull
-        ? (isFlat ? getAllKeysIn : getAllKeys)
-        : (isFlat ? keysIn : keys);
-
-    var props = isArr ? undefined : keysFunc(value);
-    arrayEach(props || value, function(subValue, key) {
-        if (props) {
-            key = subValue;
-            subValue = value[key];
-        }
-        // Recursively populate clone (susceptible to call stack limits).
-        assignValue(result, key, baseClone(subValue, bitmask, customizer, key, value, stack));
-    });
-    return result;
+    // Recursively populate clone (susceptible to call stack limits).
+    assignValue(
+      result,
+      key,
+      baseClone(subValue, bitmask, customizer, key, value, stack)
+    )
+  })
+  return result
 }
 
 /**
@@ -137,9 +155,9 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
  * // => false
  */
 function cloneDeep(value) {
-    return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
+  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG)
 }
 
 export default {
-    cloneDeep
+  cloneDeep
 }

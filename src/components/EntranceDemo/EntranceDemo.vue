@@ -9,7 +9,10 @@
           :key="item.path"
           @click.native="linkTo(item.path)"
         >
-          <div slot="header" class="clearfix">{{ item.component.name }}</div>
+          <div
+            slot="header"
+            class="clearfix"
+          >{{ item.component.name }}</div>
           {{ item.xDescription }}
         </el-card>
       </el-main>
@@ -18,21 +21,21 @@
 </template>
 
 <script>
-import routers from "../../plugins/vueRouter/router.js";
+import routers from '../../plugins/vueRouter/router.js'
 
 export default {
-  name: "EntranceDemo",
+  name: 'EntranceDemo',
   computed: {
     routersArr() {
-      return routers.filter(el => el.xShow);
+      return routers.filter(el => el.xShow)
     }
   },
   methods: {
     linkTo(path) {
-      this.$router.push(path);
+      this.$router.push(path)
     }
   }
-};
+}
 </script>
 
 <style scoped>

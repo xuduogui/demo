@@ -1,23 +1,22 @@
 <template>
-    <div>
-        <div id="breakoutBox"></div>
-    </div>
+  <div>
+    <div id="breakoutBox"></div>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "BreakOut",
-        data () {
-            return {
+export default {
+  name: 'BreakOut',
+  data() {
+    return {
 
-            }
-        },
-        methods: {
-
-        }
     }
+  },
+  methods: {
+
+  }
+}
 </script>
 
 <style scoped>
-
 </style>

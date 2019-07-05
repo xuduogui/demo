@@ -1,60 +1,123 @@
 <template>
-    <div style="position: relative;">
-        <EasyPlayer
-                :videoUrl="videoUrl"
-                :aspect="aspect"
-                videoTitle="WO SHI CE SHIWO SHI CE SHIWO SHI CE SHI"
-                live
-                @message="$message"
-                :fluent="fluent"
-                :autoplay="autoplay"
-        ></EasyPlayer>
-        <div style="position: absolute; top: 10px; right: 30px; width: 200px; color: red; background: rgba( 200, 200, 200, .5);">
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-            我是测试
-        </div>
+  <div style="position: relative;">
+    <EasyPlayer
+      :videoUrl="videoUrl"
+      :aspect="aspect"
+      videoTitle="WO SHI CE SHIWO SHI CE SHIWO SHI CE SHI"
+      live
+      @message="$message"
+      :fluent="fluent"
+      :autoplay="autoplay"
+    ></EasyPlayer>
+    <div style="position: absolute; top: 50px; right: 30px; width: 500px; color: red; background: rgba( 200, 200, 200, .5);">
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      我是测试
+      <img
+        src="http://pic37.nipic.com/20140113/8800276_184927469000_2.png"
+        alt
+        width="100"
+        height="100"
+        style="opacity: .5"
+      >
+
+      <div
+        id="_main"
+        style="width: 500px; height: 300px;"
+      ></div>
     </div>
+  </div>
 </template>
 
 <script>
-    import EasyPlayer from '@easydarwin/easyplayer'
+import EasyPlayer from '@easydarwin/easyplayer'
+const echarts = require('echarts')
 
-    export default {
-        name: "EasyPlayDemo",
-        components: {
-            EasyPlayer
-        },
-        data() {
-            return {
-                videoUrl: '',
-                aspect: '',
-                fluent: '',
-                autoplay: '',
-            }
-        },
-        method: {
-            // message 触发通知消息, 参数: { type: '', message: ''}
-            // ended 播放结束, 参数: 无
-            // timeupdate 进度更新, 参数: 当前时间进度
-            // pause 暂停, 参数: 当前时间进度
-            // play 播放, 参数: 当前时间进度
-            $message() {
-
-            }
-        }
+export default {
+  name: 'EasyPlayDemo',
+  components: {
+    EasyPlayer
+  },
+  data() {
+    return {
+      videoUrl: 'http://1842tp4914.51mypc.cn:54538/flv/hls/stream_3.flv',
+      aspect: '',
+      fluent: '',
+      autoplay: ''
     }
+  },
+
+  mounted() {
+    setInterval(() => {
+      const arr = [1, 2, 3, 4, 3, Math.floor(5 * Math.random()), 1]
+      this.renderEcharts(arr)
+    }, 500)
+  },
+  methods: {
+    // message 触发通知消息, 参数: { type: '', message: ''}
+    // ended 播放结束, 参数: 无
+    // timeupdate 进度更新, 参数: 当前时间进度
+    // pause 暂停, 参数: 当前时间进度
+    // play 播放, 参数: 当前时间进度
+    $message() { },
+
+    renderEcharts(arr) {
+      // eslint-disable-next-line no-undef
+      app.title = '极坐标系下的堆叠柱状图'
+
+      const option = {
+        angleAxis: {
+          type: 'category',
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+          z: 10
+        },
+        radiusAxis: {},
+        polar: {},
+        series: [
+          {
+            type: 'bar',
+            data: arr,
+            coordinateSystem: 'polar',
+            name: 'A',
+            stack: 'a'
+          },
+          {
+            type: 'bar',
+            data: [2, 4, 6, 1, 3, 2, 1],
+            coordinateSystem: 'polar',
+            name: 'B',
+            stack: 'a'
+          },
+          {
+            type: 'bar',
+            data: [1, 2, 3, 4, 1, 2, 5],
+            coordinateSystem: 'polar',
+            name: 'C',
+            stack: 'a'
+          }
+        ],
+        legend: {
+          show: true,
+          data: ['A', 'B', 'C']
+        }
+      }
+
+      const myChart = echarts.init(document.getElementById('_main'))
+      // 绘制图表
+      myChart.setOption(option)
+    }
+  }
+}
 </script>
 
 <style scoped>
-
 </style>
 <!--配置属性-->
 <!--// video-url 视频流地址 String default ''-->
