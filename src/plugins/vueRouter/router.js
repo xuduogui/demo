@@ -13,6 +13,8 @@ const ZrenderDemo = () => import('../../components/ZrenderDemo/ZrenderDemo.vue')
 const ImgZip = () => import('../../components/ImgZip/ImgZip.vue')
 const UploadImgDemo = () =>
   import('../../components/UploadImgDemo/UploadImgDemo.vue')
+const FileDownDemo = () =>
+  import('../../components/FileDownDemo/FileDownDemo.vue')
 
 export default [
   {
@@ -73,6 +75,12 @@ export default [
     path: '/UploadImgDemo',
     component: UploadImgDemo,
     xDescription: 'UploadImgDemo',
+    xShow: true
+  },
+  {
+    path: '/FileDownDemo',
+    component: FileDownDemo,
+    xDescription: 'FileDownDemo',
     xShow: true
   }
 ]

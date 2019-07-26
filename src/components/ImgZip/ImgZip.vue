@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import img from '../../assets/phone.jpg'
+import img from './img/t.jpg'
 import upload from './uploadImg'
 
 export default {
@@ -40,7 +40,7 @@ export default {
   mounted() {
     this.imgMsg(img, async el => {
       const img = el.target
-      const b64 = this.canvasZip(img, 0.1)
+      const b64 = this.canvasZip(img, 0.2)
       // const toImg = document.getElementById('toImg')
       // toImg.src = b64
       this.imgUrl.push(b64)
@@ -58,7 +58,7 @@ export default {
       // const formData = new FormData()
       // formData.append('file', filemy)
 
-      const res = await upload.up('/plat/file/uploadOneImg', b64)
+      // const res = await upload.up('/bocca/file/uploadOneImg', b64)
 
       debugger
     })
@@ -90,7 +90,9 @@ export default {
       anh.nodeValue = h
       canvas.setAttributeNode(anw)
       canvas.setAttributeNode(anh)
+      // ctx.rotate(270 * Math.PI / 180)
       ctx.drawImage(img, 0, 0, w, h)
+
       // quality值越小，所绘制出的图像越模糊
       const base64 = canvas.toDataURL('image/' + type, quality)
       return base64

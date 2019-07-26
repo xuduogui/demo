@@ -34,6 +34,14 @@ const config = {
       '/mock': {
         target: 'http://rap2api.taobao.org',
         pathRewrite: { '^/mock': '/' }
+      },
+      '/bocca': {
+        target: 'http://192.168.31.245:1805/bocca'
+        // pathRewrite: { '^/bocca': '/' }
+      },
+      '/other': {
+        target: 'https://ss1.bdstatic.com',
+        pathRewrite: { '^/other': '/' }
       }
     },
     port: 8888
