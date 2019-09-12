@@ -36,7 +36,8 @@ const config = {
         pathRewrite: { '^/mock': '/' }
       },
       '/bocca': {
-        target: 'http://192.168.31.245:1805/bocca'
+        // target: 'http://192.168.31.245:1805/bocca'
+        target: 'http://boccaccio.3322.org:7383'
         // pathRewrite: { '^/bocca': '/' }
       },
       '/other': {

@@ -15,6 +15,13 @@ const UploadImgDemo = () =>
   import('../../components/UploadImgDemo/UploadImgDemo.vue')
 const FileDownDemo = () =>
   import('../../components/FileDownDemo/FileDownDemo.vue')
+const PixiDemo = () => import('../../components/PixiDemo/PixiDemo.vue')
+const VueQuillEditorDemo = () =>
+  import('../../components/VueQuillEditorDemo/VueQuillEditorDemo.vue')
+const VueTinymceDemo = () =>
+  import('../../components/VueTinymceDemo/VueTinymceDemo.vue')
+const ZrenderDemoForScal = () =>
+  import('../../components/ZrenderDemoForScal/ZrenderDemoForScal.vue')
 
 export default [
   {
@@ -27,6 +34,24 @@ export default [
     path: '/math',
     component: MathDemo,
     xDescription: '一个四则运算生成器，支持右键纯净打印',
+    xShow: true
+  },
+  {
+    path: '/ZrenderDemoForScal',
+    component: ZrenderDemoForScal,
+    xDescription: 'ZrenderDemoForScal缩放实例',
+    xShow: true
+  },
+  {
+    path: '/VueTinymceDemo',
+    component: VueTinymceDemo,
+    xDescription: '富文本VueTinymceDemo',
+    xShow: VueTinymceDemo
+  },
+  {
+    path: '/VueQuillEditorDemo',
+    component: VueQuillEditorDemo,
+    xDescription: '富文本编辑器VueQuillEditor',
     xShow: true
   },
   {
@@ -75,6 +100,12 @@ export default [
     path: '/UploadImgDemo',
     component: UploadImgDemo,
     xDescription: 'UploadImgDemo',
+    xShow: true
+  },
+  {
+    path: '/PixiDemo',
+    component: PixiDemo,
+    xDescription: 'PixiDemo',
     xShow: true
   },
   {
