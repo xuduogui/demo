@@ -179,11 +179,13 @@ export default {
         // draggable: true,
         style: {
           image: imgUrl,
-          x: g.position[0] + oriPosiX,
-          y: g.position[1] + oriPosiY,
+          // x: g.position[0] + oriPosiX,
+          // y: g.position[1] + oriPosiY,
           width: 1080,
           height: 1920
         },
+
+        position: [g.position[0] + oriPosiX, g.position[1] + oriPosiY],
         z: -9999
       }
 

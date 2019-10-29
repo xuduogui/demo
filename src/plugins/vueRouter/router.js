@@ -22,6 +22,10 @@ const VueTinymceDemo = () =>
   import('../../components/VueTinymceDemo/VueTinymceDemo.vue')
 const ZrenderDemoForScal = () =>
   import('../../components/ZrenderDemoForScal/ZrenderDemoForScal.vue')
+const VueTinymceDemoShow = () =>
+  import('../../components/VueTinymceDemo/VueTinymceDemoShow.vue')
+const ZrenderDemoForDraw = () =>
+  import('../../components/ZrenderDemoForDraw/ZrenderDemoForDraw.vue')
 
 export default [
   {
@@ -34,6 +38,18 @@ export default [
     path: '/math',
     component: MathDemo,
     xDescription: '一个四则运算生成器，支持右键纯净打印',
+    xShow: true
+  },
+  {
+    path: '/ZrenderDemoForDraw',
+    component: ZrenderDemoForDraw,
+    xDescription: 'ZrenderDemoForDraw',
+    xShow: true
+  },
+  {
+    path: '/VueTinymceDemoShow',
+    component: VueTinymceDemoShow,
+    xDescription: 'VueTinymceDemoShow展示',
     xShow: true
   },
   {
